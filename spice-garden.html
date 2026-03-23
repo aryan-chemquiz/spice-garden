@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spice Garden — Authentic Indian Cuisine</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #FF6B00;
+    --turmeric: #FFB800;
+    --chili: #E8003D;
+    --mint: #00C896;
+    --cream: #FFF8F0;
+    --dark: #1A0A00;
+    --card: #FFF3E8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Decorative pattern background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,107,0,0.04) 1px, transparent 1px);
+    background-size: 30px 30px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 60px;
+    background: rgba(255,248,240,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid rgba(255,107,0,0.1);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--saffron);
+    letter-spacing: -0.5px;
+  }
+
+  .logo span { color: var(--chili); }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links a { color: var(--dark); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--saffron); }
+
+  .nav-cta {
+    padding: 10px 24px;
+    background: var(--saffron);
+    color: white !important;
+    border-radius: 50px;
+    font-weight: 600 !important;
+    transition: all 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--chili) !important; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,107,0,0.4); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 60px 80px;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    top: 0; right: 0;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--saffron), var(--turmeric), var(--chili));
+    clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+    z-index: -1;
+  }
+
+  .hero-bg::after {
+    content: '🍛🌶️🍜🥘🫕';
+    position: absolute;
+    font-size: 8rem;
+    opacity: 0.1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    letter-spacing: 20px;
+    white-space: nowrap;
+  }
+
+  .hero-content { max-width: 560px; z-index: 1; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    background: rgba(255,107,0,0.1);
+    border: 1px solid rgba(255,107,0,0.3);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    color: var(--saffron);
+    font-weight: 600;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s ease both;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--saffron);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: #6B4C2A;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    animation: fadeUp 0.8s 0.2s ease both;
+    font-weight: 300;
+    max-width: 440px;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .btn-primary {
+    padding: 16px 36px;
+    background: var(--saffron);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  .btn-primary:hover { background: var(--chili); transform: translateY(-3px); box-shadow: 0 15px 40px rgba(255,107,0,0.4); }
+
+  .btn-secondary {
+    padding: 16px 36px;
+    background: transparent;
+    color: var(--dark);
+    border: 2px solid rgba(26,10,0,0.2);
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  .btn-secondary:hover { border-color: var(--saffron); color: var(--saffron); }
+
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,107,0,0.15);
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .stat-item { text-align: left; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--saffron);
+  }
+  .stat-label { font-size: 0.8rem; color: #6B4C2A; font-weight: 500; margin-top: 2px; }
+
+  /* SPECIALS */
+  .specials {
+    position: relative;
+    z-index: 1;
+    padding: 100px 60px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    color: var(--saffron);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+    line-height: 1.1;
+  }
+
+  .section-sub {
+    color: #6B4C2A;
+    font-size: 1rem;
+    max-width: 480px;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 56px;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .menu-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: all 0.4s;
+    box-shadow: 0 4px 20px rgba(255,107,0,0.08);
+    border: 1px solid rgba(255,107,0,0.08);
+  }
+
+  .menu-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(255,107,0,0.2); }
+
+  .card-emoji {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-emoji.c1 { background: linear-gradient(135deg, #FFE4CC, #FFB347); }
+  .card-emoji.c2 { background: linear-gradient(135deg, #FFE4E4, #FF6B6B); }
+  .card-emoji.c3 { background: linear-gradient(135deg, #E4FFE4, #4CAF50); }
+  .card-emoji.c4 { background: linear-gradient(135deg, #E4F4FF, #2196F3); }
+  .card-emoji.c5 { background: linear-gradient(135deg, #FFF4E4, #FF9800); }
+  .card-emoji.c6 { background: linear-gradient(135deg, #F4E4FF, #9C27B0); }
+
+  .card-body { padding: 24px; }
+  .card-tag { font-size: 0.7rem; color: var(--saffron); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .card-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+  .card-desc { font-size: 0.85rem; color: #6B4C2A; line-height: 1.6; font-weight: 300; margin-bottom: 20px; }
+  .card-footer { display: flex; justify-content: space-between; align-items: center; }
+  .card-price { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--saffron); }
+  .card-btn { padding: 8px 20px; background: var(--saffron); color: white; border: none; border-radius: 50px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .card-btn:hover { background: var(--chili); transform: scale(1.05); }
+
+  /* WHY US */
+  .why {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, var(--saffron), var(--chili));
+    padding: 100px 60px;
+    overflow: hidden;
+  }
+
+  .why::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  .why-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+  .why .section-label { color: rgba(255,255,255,0.7); }
+  .why .section-title { color: white; }
+  .why .section-sub { color: rgba(255,255,255,0.8); }
+
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-top: 56px; }
+
+  .why-card {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 36px 28px;
+    transition: all 0.4s;
+    backdrop-filter: blur(10px);
+  }
+  .why-card:hover { background: rgba(255,255,255,0.2); transform: translateY(-4px); }
+
+  .why-icon { font-size: 2.5rem; margin-bottom: 16px; }
+  .why-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: white; margin-bottom: 10px; }
+  .why-desc { font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.7; font-weight: 300; }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    position: relative;
+    z-index: 1;
+    padding: 100px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 56px; }
+
+  .testimonial-card {
+    background: white;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(255,107,0,0.08);
+    border: 1px solid rgba(255,107,0,0.08);
+    transition: all 0.4s;
+  }
+  .testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(255,107,0,0.15); }
+
+  .stars { color: var(--turmeric); font-size: 1.1rem; margin-bottom: 16px; }
+  .testimonial-text { color: #6B4C2A; font-size: 0.95rem; line-height: 1.7; font-weight: 300; margin-bottom: 24px; font-style: italic; }
+  .testimonial-author { display: flex; align-items: center; gap: 12px; }
+  .author-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+  .av1 { background: linear-gradient(135deg, #FFE4CC, #FFB347); }
+  .av2 { background: linear-gradient(135deg, #FFE4E4, #FF6B6B); }
+  .av3 { background: linear-gradient(135deg, #E4FFE4, #4CAF50); }
+  .author-name { font-weight: 700; font-size: 0.95rem; }
+  .author-role { font-size: 0.8rem; color: #9B7A5A; font-weight: 300; }
+
+  /* RESERVATION */
+  .reservation {
+    position: relative;
+    z-index: 1;
+    margin: 0 60px 100px;
+    border-radius: 32px;
+    padding: 80px 60px;
+    background: var(--dark);
+    overflow: hidden;
+  }
+
+  .reservation::before {
+    content: '🍽️';
+    position: absolute;
+    font-size: 20rem;
+    opacity: 0.04;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .reservation-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+  .res-left .section-label { color: var(--saffron); }
+  .res-left .section-title { color: white; }
+  .res-left .section-sub { color: rgba(255,255,255,0.6); margin-bottom: 0; }
+
+  .res-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group label { font-size: 0.8rem; color: rgba(255,255,255,0.6); font-weight: 500; letter-spacing: 0.5px; }
+  .form-group input, .form-group select {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 14px 16px;
+    color: white;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: rgba(255,107,0,0.6); }
+  .form-group input::placeholder { color: rgba(255,255,255,0.3); }
+  .form-group select option { background: var(--dark); }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 40px 60px;
+    border-top: 1px solid rgba(255,107,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  footer p { color: #9B7A5A; font-size: 0.85rem; font-weight: 300; }
+  .footer-links { display: flex; gap: 32px; list-style: none; }
+  .footer-links a { color: #9B7A5A; text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--saffron); }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(26,10,0,0.7); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+  .modal-overlay.show { display: flex; }
+  .modal { background: white; border-radius: 24px; padding: 48px 40px; text-align: center; max-width: 420px; width: 90%; animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+  @keyframes popIn { from{opacity:0;transform:scale(0.8)} to{opacity:1;transform:scale(1)} }
+  .modal-icon { font-size: 3.5rem; margin-bottom: 16px; }
+  .modal h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; margin-bottom: 12px; }
+  .modal p { color: #6B4C2A; font-size: 0.95rem; line-height: 1.6; font-weight: 300; margin-bottom: 32px; }
+  .modal-close { padding: 14px 36px; background: var(--saffron); color: white; border: none; border-radius: 50px; font-size: 0.95rem; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.3s; }
+  .modal-close:hover { background: var(--chili); transform: translateY(-2px); }
+
+  /* TOAST */
+  .toast { position: fixed; bottom: 30px; right: 30px; background: white; border: 2px solid var(--saffron); border-radius: 16px; padding: 16px 24px; display: flex; align-items: center; gap: 12px; z-index: 999; transform: translateY(100px); opacity: 0; transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); font-size: 0.9rem; box-shadow: 0 10px 30px rgba(255,107,0,0.2); }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-bg { width: 100%; clip-path: none; opacity: 0.15; }
+    .specials, .testimonials { padding: 60px 24px; }
+    .why { padding: 60px 24px; }
+    .reservation { margin: 0 24px 60px; padding: 48px 24px; }
+    .reservation-inner { grid-template-columns: 1fr; gap: 40px; }
+    footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-icon">🎉</div>
+    <h3>Table Reserved!</h3>
+    <p>Your reservation has been confirmed! We look forward to serving you the finest Indian cuisine. See you soon!</p>
+    <button class="modal-close" onclick="closeModal()">Can't wait! 🍛</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span>🍽️</span>
+  <span id="toast-msg">Order added!</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Spice<span>Garden</span></div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#why">About</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#reservation">Reserve</a></li>
+    <li><a href="#reservation" class="nav-cta" onclick="scrollToRes(event)">Book a Table</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🌶️ Est. 2010 · Award Winning</div>
+    <h1>Taste the <em>Soul</em> of India</h1>
+    <p class="hero-sub">Authentic flavors crafted with century-old recipes, the finest spices, and love passed down through generations.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="scrollToRes()">Reserve a Table</button>
+      <button class="btn-secondary" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">View Menu →</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">15+</div><div class="stat-label">Years of Excellence</div></div>
+      <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Signature Dishes</div></div>
+      <div class="stat-item"><div class="stat-num">10K+</div><div class="stat-label">Happy Guests</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="specials" id="menu">
+  <div class="reveal">
+    <div class="section-label">Our Specialties</div>
+    <h2 class="section-title">Chef's Signature<br>Creations</h2>
+    <p class="section-sub">Every dish is a journey — crafted with authentic spices and timeless recipes from across India.</p>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card reveal">
+      <div class="card-emoji c1">🍛</div>
+      <div class="card-body">
+        <div class="card-tag">⭐ Bestseller</div>
+        <div class="card-name">Butter Chicken</div>
+        <p class="card-desc">Tender chicken in a rich, creamy tomato sauce with aromatic spices. Our most-loved dish.</p>
+        <div class="card-footer">
+          <div class="card-price">₹320</div>
+          <button class="card-btn" onclick="addToCart('Butter Chicken')">Order Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-emoji c2">🌶️</div>
+      <div class="card-body">
+        <div class="card-tag">🔥 Spicy Special</div>
+        <div class="card-name">Laal Maas</div>
+        <p class="card-desc">Rajasthani lamb curry with fiery red chilies and bold spices. For the brave at heart.</p>
+        <div class="card-footer">
+          <div class="card-price">₹480</div>
+          <button class="card-btn" onclick="addToCart('Laal Maas')">Order Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-emoji c3">🥗</div>
+      <div class="card-body">
+        <div class="card-tag">🌿 Vegetarian</div>
+        <div class="card-name">Palak Paneer</div>
+        <p class="card-desc">Fresh cottage cheese in a vibrant spinach gravy with ginger and spices.</p>
+        <div class="card-footer">
+          <div class="card-price">₹280</div>
+          <button class="card-btn" onclick="addToCart('Palak Paneer')">Order Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-emoji c4">🍚</div>
+      <div class="card-body">
+        <div class="card-tag">👑 Royal Recipe</div>
+        <div class="card-name">Dum Biryani</div>
+        <p class="card-desc">Slow-cooked basmati rice with aromatic spices and tender meat. A royal feast.</p>
+        <div class="card-footer">
+          <div class="card-price">₹420</div>
+          <button class="card-btn" onclick="addToCart('Dum Biryani')">Order Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-emoji c5">🫓</div>
+      <div class="card-body">
+        <div class="card-tag">🍞 Fresh Baked</div>
+        <div class="card-name">Garlic Naan</div>
+        <p class="card-desc">Soft, pillowy naan bread baked in our tandoor with butter and fresh garlic.</p>
+        <div class="card-footer">
+          <div class="card-price">₹80</div>
+          <button class="card-btn" onclick="addToCart('Garlic Naan')">Order Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card reveal">
+      <div class="card-emoji c6">🍮</div>
+      <div class="card-body">
+        <div class="card-tag">🍬 Dessert</div>
+        <div class="card-name">Gulab Jamun</div>
+        <p class="card-desc">Soft milk-solid dumplings soaked in rose-flavored sugar syrup. Pure indulgence.</p>
+        <div class="card-footer">
+          <div class="card-price">₹120</div>
+          <button class="card-btn" onclick="addToCart('Gulab Jamun')">Order Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="why-inner">
+    <div class="reveal">
+      <div class="section-label">Why Choose Us</div>
+      <h2 class="section-title">More Than Just Food —<br>An Experience</h2>
+      <p class="section-sub">Every visit to Spice Garden is a celebration of authentic flavors, warm hospitality, and unforgettable memories.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal"><div class="why-icon">👨‍🍳</div><div class="why-title">Master Chefs</div><p class="why-desc">Our chefs bring 20+ years of culinary expertise from renowned kitchens across India.</p></div>
+      <div class="why-card reveal"><div class="why-icon">🌿</div><div class="why-title">Fresh Ingredients</div><p class="why-desc">We source only the freshest ingredients daily. No preservatives, no shortcuts.</p></div>
+      <div class="why-card reveal"><div class="why-icon">🏆</div><div class="why-title">Award Winning</div><p class="why-desc">Recognized as Best Indian Restaurant by Food & Travel Magazine 3 years running.</p></div>
+      <div class="why-card reveal"><div class="why-icon">🎭</div><div class="why-title">Live Music</div><p class="why-desc">Enjoy live classical Indian music every Friday and Saturday evening while you dine.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="reviews">
+  <div class="reveal">
+    <div class="section-label">Guest Reviews</div>
+    <h2 class="section-title">What Our Guests<br>Are Saying</h2>
+    <p class="section-sub">Over 10,000 happy guests and counting. Here's what they love about Spice Garden.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"The Butter Chicken here is absolutely divine! I've visited countless Indian restaurants but nothing compares to Spice Garden. Truly authentic!"</p>
+      <div class="testimonial-author"><div class="author-avatar av1">😊</div><div><div class="author-name">Priya Sharma</div><div class="author-role">Food Blogger, Mumbai</div></div></div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"Celebrated my anniversary here and it was magical! The ambiance, the food, the service — everything was perfect. Will definitely be back!"</p>
+      <div class="testimonial-author"><div class="author-avatar av2">🎉</div><div><div class="author-name">Rahul & Neha</div><div class="author-role">Regular Guests</div></div></div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"As someone who grew up in Rajasthan, the Laal Maas here took me right back home. Authentic, bold, and absolutely delicious!"</p>
+      <div class="testimonial-author"><div class="author-avatar av3">🌶️</div><div><div class="author-name">Vikram Singh</div><div class="author-role">Travel Writer</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section class="reservation" id="reservation">
+  <div class="reservation-inner">
+    <div class="res-left reveal">
+      <div class="section-label">Reservations</div>
+      <h2 class="section-title" style="color:white">Book Your<br>Table Today</h2>
+      <p class="section-sub">Reserve your spot for an unforgettable dining experience. Special arrangements available for birthdays and anniversaries.</p>
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:16px;">
+        <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.8);font-size:0.9rem;">📍 123 Spice Lane, Connaught Place, New Delhi</div>
+        <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.8);font-size:0.9rem;">📞 +91 98765 43210</div>
+        <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.8);font-size:0.9rem;">⏰ Mon-Sun: 12:00 PM – 11:00 PM</div>
+      </div>
+    </div>
+    <div class="res-form reveal">
+      <div class="form-row">
+        <div class="form-group"><label>Full Name</label><input type="text" id="res-name" placeholder="Your name"></div>
+        <div class="form-group"><label>Phone</label><input type="tel" id="res-phone" placeholder="+91 00000 00000"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Date</label><input type="date" id="res-date"></div>
+        <div class="form-group"><label>Time</label>
+          <select id="res-time">
+            <option value="">Select time</option>
+            <option>12:00 PM</option>
+            <option>1:00 PM</option>
+            <option>2:00 PM</option>
+            <option>7:00 PM</option>
+            <option>8:00 PM</option>
+            <option>9:00 PM</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Number of Guests</label>
+        <select id="res-guests">
+          <option value="">Select guests</option>
+          <option>1 Person</option>
+          <option>2 People</option>
+          <option>3-4 People</option>
+          <option>5-6 People</option>
+          <option>7+ People</option>
+        </select>
+      </div>
+      <button class="btn-primary" style="width:100%;padding:16px;margin-top:8px;border-radius:12px" onclick="submitReservation()">
+        Reserve My Table 🍽️
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Spice<span style="color:var(--chili)">Garden</span></div>
+  <p>© 2025 Spice Garden Restaurant. All rights reserved.</p>
+  <ul class="footer-links">
+    <li><a href="#">Privacy</a></li>
+    <li><a href="#">Menu</a></li>
+    <li><a href="#reservation">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 100);
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Modal
+  function showModal() { document.getElementById('modal').classList.add('show'); }
+  function closeModal() { document.getElementById('modal').classList.remove('show'); }
+  document.getElementById('modal').addEventListener('click', function(e) { if(e.target === this) closeModal(); });
+
+  // Toast
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  // Scroll to reservation
+  function scrollToRes(e) {
+    if(e) e.preventDefault();
+    document.getElementById('reservation').scrollIntoView({behavior:'smooth'});
+  }
+
+  // Add to cart
+  function addToCart(item) {
+    showToast(`🍛 ${item} added to order!`);
+  }
+
+  // Reservation submit
+  function submitReservation() {
+    const name = document.getElementById('res-name').value.trim();
+    const phone = document.getElementById('res-phone').value.trim();
+    const date = document.getElementById('res-date').value;
+    const time = document.getElementById('res-time').value;
+    const guests = document.getElementById('res-guests').value;
+
+    if(!name) { showToast('⚠️ Please enter your name!'); return; }
+    if(!phone) { showToast('⚠️ Please enter your phone!'); return; }
+    if(!date) { showToast('⚠️ Please select a date!'); return; }
+    if(!time) { showToast('⚠️ Please select a time!'); return; }
+    if(!guests) { showToast('⚠️ Please select number of guests!'); return; }
+
+    document.getElementById('res-name').value = '';
+    document.getElementById('res-phone').value = '';
+    document.getElementById('res-date').value = '';
+    document.getElementById('res-time').value = '';
+    document.getElementById('res-guests').value = '';
+
+    showModal();
+  }
+</script>
+</body>
+</html>
